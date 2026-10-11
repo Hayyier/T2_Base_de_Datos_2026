@@ -1,0 +1,14 @@
+/* SaludUSM - ajustes minimos sobre Bootstrap 5 */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main { flex: 1 0 auto; }
+.card-header { border-bottom: 1px solid rgba(0, 0, 0, .075); }
+
+dl.row dt { font-weight: 600; color: #495057; }
+.form-text { font-size: .8rem; }
+.navbar .nav-link, .navbar .navbar-text { white-space: nowrap; font-size: .92rem; }
+.navbar .nav-link.disabled { color: rgba(255, 255, 255, .55); }
+.texto-clinico { white-space: pre-line; }   /* [P7] respeta saltos de linea de observaciones */
