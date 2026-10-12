@@ -14,7 +14,7 @@ Repositorio: https://github.com/Hayyier/T2_Base_de_Datos_2026
 ## Requisitos
 
 | Software | Versión |
-|---|---|---|
+|---|---|
 | PHP | 8.1 o superior | 
 | Motor de BD | MySQL 8.0.16+ o MariaDB 10.4+ |
 | Servidor web | Apache (XAMPP) |
@@ -61,7 +61,7 @@ Las carpetas `PHP/includes/` y `PHP/config/` tienen un `.htaccess` con `Require 
 2. **Crear la BD con todos sus objetos y datos.** El archivo `BD/salud_usm.sql` hace todo en un solo paso, en este orden:
 
    | Paso | Contenido |
-   |---|---|---|
+   |---|---|
    | Crear BD | `DROP DATABASE IF EXISTS` + `CREATE DATABASE salud_usm` |
    | DDL | 17 tablas con PK, FK (CASCADE/RESTRICT), UNIQUE, CHECK, índices y catálogos fijos |
    | Objetos SQL | 2 functions |
@@ -124,7 +124,7 @@ La política se aplica al registrarse, al cambiar la contraseña en el perfil y 
 ## Resumen de las decisiones principales
 
 | Tema | Decisión |
-|---|---|---|
+|---|---|
 | Bloques | 30 minutos, en las horas :00 y :30 |
 | Horario | Lunes a sábado, de 08:00 a 18:00 (último bloque a las 17:30); se agenda hasta 90 días hacia adelante |
 | Choque de horarios | Un médico no tiene dos citas activas a la misma hora (en ningún centro); un paciente tampoco |
