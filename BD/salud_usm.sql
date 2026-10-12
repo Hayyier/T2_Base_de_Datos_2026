@@ -1,4 +1,5 @@
 SET NAMES utf8mb4;   -- el script contiene tildes
+DROP DATABASE IF EXISTS salud_usm;
 CREATE DATABASE IF NOT EXISTS salud_usm
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
@@ -17,6 +18,7 @@ CREATE TABLE Comuna (
     nombreComuna VARCHAR(60) NOT NULL,
     idRegion     INT         NOT NULL,
     CONSTRAINT pk_comuna        PRIMARY KEY (idComuna),
+    -- supuesto: el nombre de la comuna es unico en el pais (DF nombreComuna -> region)
     CONSTRAINT uq_comuna_nombre UNIQUE (nombreComuna),
     CONSTRAINT fk_comuna_region FOREIGN KEY (idRegion) REFERENCES Region (idRegion)
         ON DELETE RESTRICT ON UPDATE CASCADE
@@ -182,6 +184,7 @@ CREATE TABLE Cita (
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_cita_especialidad FOREIGN KEY (idEspecialidad) REFERENCES Especialidad (idEspecialidad)
         ON DELETE RESTRICT ON UPDATE CASCADE,
+    -- RESTRICT obligatorio: idEstadoCita es base de una columna generada
     CONSTRAINT fk_cita_estado FOREIGN KEY (idEstadoCita) REFERENCES EstadoCita (idEstadoCita)
         ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB;
@@ -325,7 +328,6 @@ DELIMITER ;
 -- pasado, estado inicial, transiciones). Las reglas estructurales
 -- (especialidad, centro, choques, maximos) se validan SIEMPRE. La aplicacion
 -- PHP nunca fija esta variable.
-
 DROP TRIGGER IF EXISTS trg_persona_bi;
 DROP TRIGGER IF EXISTS trg_persona_bu;
 DROP TRIGGER IF EXISTS trg_paciente_bi;
@@ -597,14 +599,13 @@ END$$
 
 DELIMITER ;
 
-
 -- 10. Procedimientos almacenados
-
 DROP PROCEDURE IF EXISTS sp_cancelar_citas_vencidas;
 DROP PROCEDURE IF EXISTS sp_bloques_disponibles;
 DROP PROCEDURE IF EXISTS sp_crear_medico;
 
 DELIMITER $$
+
 
 -- sp_cancelar_citas_vencidas(OUT p_cantidad)
 -- Citas vencidas (consulta 10 de la T1): pasa a Cancelada toda cita
